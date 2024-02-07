@@ -43,6 +43,18 @@ app.post('/tests', async (req, res) => {
 
   res.json(newTest);
 });
+app.get('/tests', async (req, res) => {
+  try {
+    const tests = await Test.find();
+    console.log('the movies are', tests);
+
+    res.json(tests);
+    return;
+  } catch (error) {
+    console.log('error while reading movies ');
+    return res.send(error);
+  }
+});
 
 // ======= Movies ENDPOINTS =====
 app.post('/movies', async (req, res) => {
@@ -95,7 +107,7 @@ app.get('/movies', async (req, res) => {
     return;
   } catch (error) {
     console.log('error while reading movies ');
-    return res.send('error');
+    return res.send(error);
   }
 });
 
@@ -108,7 +120,7 @@ app.get('/movies/:movieId', async (req, res) => {
     return;
   } catch (error) {
     console.log('error while reading movie of id ', id);
-    return res.send('error');
+    return res.send(error);
   }
 });
 
