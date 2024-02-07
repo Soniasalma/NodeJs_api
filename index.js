@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 
 const app = express();
 require('dotenv').config();
+const bodyParser = require('body-parser');
+//Parse data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT;
 const connectionString = process.env.CONNECTION_STRING;
 const Test = require('./models/Test');
@@ -38,10 +42,15 @@ app.post('/tests', async (req, res) => {
 
   newTest.title = testTitle;
   newTest.body = testBody;
+  try {
+    await newTest.save();
 
-  await newTest.save();
-
-  res.json(newTest);
+    res.json(newTest);
+    return;
+  } catch (error) {
+    console.log('error while adding a movie to the database');
+    return res.send(error);
+  }
 });
 app.get('/tests', async (req, res) => {
   try {
