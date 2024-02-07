@@ -71,7 +71,6 @@ app.post('/movies', async (req, res) => {
 
   const movAdult = req.body.movAdult;
   const movBackdrop_path = req.body.movBackdrop_path;
-  const movGenre_ids = req.body.movGenre_ids;
   const movOriginal_language = req.body.movOriginal_language;
   const movOriginal_title = req.body.movOriginal_title;
   const movOverview = req.body.movOverview;
@@ -85,7 +84,6 @@ app.post('/movies', async (req, res) => {
 
   newMovie.adult = movAdult;
   newMovie.backdrop_path = movBackdrop_path;
-  newMovie.genre_ids = movGenre_ids;
   newMovie.original_language = movOriginal_language;
   newMovie.original_title = movOriginal_title;
   newMovie.overview = movOverview;

@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const movieSchema = new Schema({
   adult: Boolean,
   backdrop_path: String,
-  genre_ids: [Number],
   original_language: String,
   original_title: String,
   overview: String,
