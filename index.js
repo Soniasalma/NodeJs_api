@@ -1,16 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+
+import authRoutes from './routes/authRoute.js';
+import Test from './models/Test.js';
+import Movie from './models/Movie.js';
+
+//configure env
+dotenv.config();
 
 const app = express();
-require('dotenv').config();
-const bodyParser = require('body-parser');
+
 //Parse data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT;
 const connectionString = process.env.CONNECTION_STRING;
-const Test = require('./models/Test');
-const Movie = require('./models/Movie');
 
 mongoose
   .connect(connectionString)
@@ -21,7 +29,14 @@ mongoose
     console.log('error with connecting with the DB ', error);
   });
 
+//middlewares
+app.use(express.json());
+app.use(morgan('dev'));
+
 //mongodb+srv://soniayelimar:<password>@clusternodejs.bpllcrb.mongodb.net/?retryWrites=true&w=majority
+
+//routes
+app.use('/api/v1/auth', authRoutes);
 
 app.get('/hello', (req, res) => {
   res.send('hello');
