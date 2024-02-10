@@ -6,7 +6,7 @@ export const createCategoryController = async (req, res) => {
     if (!name) {
       return res.status(401).send({ message: 'Name of category is required' });
     }
-    const existingCategory = await createCategoryController.findOne({ name });
+    const existingCategory = await Category.findOne({ name });
     if (existingCategory) {
       return res.status(200).send({
         success: true,
