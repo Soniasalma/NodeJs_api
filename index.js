@@ -8,6 +8,7 @@ import Test from './models/Test.js';
 import Movie from './models/Movie.js';
 import cors from 'cors';
 import categoryRoutes from './routes/categoryRoutes.js';
+import movieRoutes from './routes/movieRoutes.js';
 
 //configure env
 dotenv.config();
@@ -39,6 +40,7 @@ app.use(cors());
 //routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/category', categoryRoutes);
+app.use('/api/v1/movie', movieRoutes);
 
 app.get('/hello', (req, res) => {
   res.send('hello');
