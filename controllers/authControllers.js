@@ -111,13 +111,11 @@ export const loginController = async (req, res) => {
 //forgotPasswordController
 export const forgotPasswordController = async (req, res) => {
   try {
-    const { email, answer, newPassword } = req.body;
+    const { email, newPassword } = req.body;
     if (!email) {
       res.status(400).send({ message: 'Email is required' });
     }
-    if (!answer) {
-      res.status(400).send({ message: 'answer is required' });
-    }
+
     if (!newPassword) {
       res.status(400).send({ message: 'New Password is required' });
     }
@@ -130,7 +128,7 @@ export const forgotPasswordController = async (req, res) => {
         message: 'Wrong Email Or Password',
       });
     }
-    const hashed = await hashedPassword(newPassword);
+    const hashed = await hashPassword(newPassword);
     await User.findByIdAndUpdate(user._id, { password: hashed });
     return res.status(200).send({
       success: true,
@@ -140,7 +138,7 @@ export const forgotPasswordController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: 'omthing went wrong',
+      message: 'something went wrong',
       error,
     });
   }
