@@ -6,7 +6,6 @@ export const createMovieController = async (req, res) => {
   try {
     const {
       title,
-      slug,
       adult,
       backdrop_path,
       original_language,
