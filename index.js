@@ -1,13 +1,13 @@
 import express from 'express';
-
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-
 import authRoutes from './routes/authRoute.js';
 import Test from './models/Test.js';
 import Movie from './models/Movie.js';
+import cors from 'cors';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 //configure env
 dotenv.config();
@@ -32,11 +32,13 @@ mongoose
 //middlewares
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 //mongodb+srv://soniayelimar:<password>@clusternodejs.bpllcrb.mongodb.net/?retryWrites=true&w=majority
 
 //routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/category', categoryRoutes);
 
 app.get('/hello', (req, res) => {
   res.send('hello');
