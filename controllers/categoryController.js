@@ -70,11 +70,31 @@ export const categoryController = async (req, res) => {
     });
   }
 };
-//single category
-export const singleCategoryController = async (req, res) => {
+//single category by slug
+export const singleCategoryBySlugController = async (req, res) => {
   try {
     const { slug } = req.params;
     const category = Category.findOne({ slug });
+    res.status(200).send({
+      success: true,
+      message: 'Get Single Category Successfully',
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: 'Error while getting single Category',
+    });
+  }
+};
+
+//single category by id
+export const singleCategoryByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = Category.findOne({ id });
     res.status(200).send({
       success: true,
       message: 'Get Single Category Successfully',

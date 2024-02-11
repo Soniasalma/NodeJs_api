@@ -66,3 +66,82 @@ export const createMovieController = async (req, res) => {
     });
   }
 };
+
+//get movies
+export const getMoviesController = async (req, res) => {
+  try {
+    const movies = await movieModel.find({});
+    res.status(200).send({
+      success: true,
+      message: 'All Movies',
+      length: movies.length,
+      movies,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: 'Error in getting movies',
+      error: error.message,
+    });
+  }
+};
+
+//single movie by slug
+export const getSingleMovieBySlugController = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const movie = movieModel.findOne({ slug });
+    res.status(200).send({
+      success: true,
+      message: 'Get Single Movie Successfully',
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: 'Error while getting single Movie',
+    });
+  }
+};
+
+//single movie by id
+export const getSingleMovieByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const movie = movieModel.findOne({ id });
+    res.status(200).send({
+      success: true,
+      message: 'Get Single Movie Successfully',
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: 'Error while getting single Movie',
+    });
+  }
+};
+
+//delete movie
+export const deleteMovieController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await movieModel.findByIdAndDelete(id);
+    res.status(200).send({
+      success: true,
+      message: 'Movie Deleted Successfully',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: 'Error while deleting Movie',
+    });
+  }
+};

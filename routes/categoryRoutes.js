@@ -4,7 +4,8 @@ import {
   categoryController,
   createCategoryController,
   deleteCategoryController,
-  singleCategoryController,
+  singleCategoryByIdController,
+  singleCategoryBySlugController,
   updateCategoryController,
 } from '../controllers/categoryController.js';
 
@@ -28,8 +29,11 @@ router.put(
 );
 //getAll category
 router.get('/get-category', categoryController);
-//single category
-router.get('/single-category/:slug', singleCategoryController);
+//single category by slug
+router.get('/single-category/:slug', singleCategoryBySlugController);
+
+//single category by id
+router.get('/single-category/:id', singleCategoryByIdController);
 //delete category
 router.delete(
   '/delete-category/:id',
